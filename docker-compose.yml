@@ -1,0 +1,26 @@
+version: '3.8'  # Use the specific version of Docker Compose syntax
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+
+  backend:
+    container_name: backend
+    # we can pull image from docker-hub also
+    #image: rahulrajak/techdomebackend:latest 
+    build: ./Techdome-backend-main
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+
+  frontend:  
+    container_name: frontend
+    #image: rahulrajak/techdomefrontend:latest 
+    build: ./Techdome-frontend-main
+    ports:
+      - "3000:3000"
+# We can also add volume here, but we need to set up the environment variable in this project.
